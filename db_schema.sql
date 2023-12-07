@@ -1,0 +1,48 @@
+CREATE DATABASE IF NOT EXISTS store;
+
+USE store;
+
+CREATE TABLE IF NOT EXISTS accounts (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    street VARCHAR(255),
+    city VARCHAR(255),
+    postal_code VARCHAR(10),
+    country VARCHAR(255),
+    phone VARCHAR(20),
+    cu INT,
+    mu INT,
+    de TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    dm TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    
+);
+
+CREATE TABLE IF NOT EXISTS invoices (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    document_no VARCHAR(60) NOT NULL,
+    nip VARCHAR(20),
+    account_id INT,
+    date DATE,
+    total DECIMAL(10, 2),
+    cu INT,
+    mu INT,
+    de TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    dm TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (account_id) REFERENCES accounts(id)
+);
+
+CREATE TABLE IF NOT EXISTS invoices_products (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    invoice_id INT,
+    product_name VARCHAR(255) NOT NULL,
+    quantity INT,
+    price_netto DECIMAL(10, 2),
+    vat DECIMAL(4, 2),
+    price_brutto DECIMAL(10, 2),
+    total DECIMAL(10, 2),
+    cu INT,
+    mu INT,
+    de TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    dm TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (invoice_id) REFERENCES invoices(id)
+);
