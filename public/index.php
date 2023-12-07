@@ -1,4 +1,5 @@
 <?php
+// chdir(dirname(__DIR__));
 
 use App\Controllers\AccountController;
 use App\Controllers\IndexController;
